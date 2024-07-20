@@ -3,8 +3,12 @@ FROM node:16-alpine
 # Задать рабочую директорию
 WORKDIR /home/ilovedocker/app
 
-# Скопировать файл hello.sh в рабочую директорию
-COPY hello.sh ./
+COPY package*.json ./
 
-# Задать скрипт в качестве команды запуска
-CMD ["sh", "./hello.sh"]
+RUN npm i --omit=dev
+
+COPY . .
+
+EXPOSE 3032
+
+CMD [ "node", "main.js" ]
